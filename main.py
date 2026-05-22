@@ -10,7 +10,6 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-# منوی اصلی
 def main_menu():
     keyboard = ReplyKeyboardMarkup(
         keyboard=[
@@ -24,22 +23,21 @@ def main_menu():
 @dp.message(Command("start"))
 async def start(message: Message):
     await message.answer(
-        "سلام! به ربات خوش اومدی.\n"
-        "از منوی پایین یکی رو انتخاب کن:",
+        "سلام! به ربات خوش اومدی.\nاز منوی پایین یکی رو انتخاب کن:",
         reply_markup=main_menu()
     )
 
 @dp.message()
 async def handle_message(message: Message):
     if message.text == "🔍 جستجو در کانال‌های عضو":
-        await message.answer("این قابلیت در حال آماده‌سازیه...")
+        await message.answer("🔍 در حال جستجو... این قابلیت به زودی اضافه میشه.")
     elif message.text == "❌ خروج":
         await message.answer("خداحافظ!", reply_markup=None)
     else:
         await message.answer("لطفاً از منو استفاده کن.")
 
 async def main():
-    print("ربات روشن شد!")
+    print("✅ ربات روشن شد!")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
