@@ -1,53 +1,44 @@
 import asyncio
 import logging
-import os
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 
-# --- اصلاح اصلی: خواندن درست توکن از متغیر محیطی ---
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+# ========================================
+# توکن خودت را اینجا بگذار
+# ========================================
+BOT_TOKEN = "8898380201:AAFKeXvAnOSwgvha1xGrwQxWIB8fGfEkVaE"
+# ========================================
 
-# بررسی: اگر توکن وجود نداشت یا None بود، خطا بده و بایست
-if not BOT_TOKEN:
-    # این خطا در لاگ Railway نشان داده می‌شود و از ادامه کار جلوگیری می‌کند.
-    raise ValueError("ERROR: BOT_TOKEN environment variable is not set!")
-
-# تنظیم لاگ
-logging.basicConfig(level=logging.INFO)
-
-# --- ایجاد ربات ---
-try:
-    bot = Bot(token=BOT_TOKEN)
-    print("✅ Bot created successfully!") # این پیام در لاگ Railway نشان داده می‌شود
-except Exception as e:
-    print(f"❌ Error creating bot: {e}")
+# چک کردن
+if not BOT_TOKEN or BOT_TOKEN == "توکن_واقعی_خودت_را_اینجا_بگذار":
+    print("❌ ERROR: Please put your real token in the code!")
     exit(1)
 
+print(f"✅ Token loaded. Length: {len(BOT_TOKEN)}")
+
+logging.basicConfig(level=logging.INFO)
+bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-# --- منوی ساده برای تست ---
 def main_menu():
     keyboard = ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text="🔍 جستجو")],
-            [KeyboardButton(text="❌ خروج")]
-        ],
+        keyboard=[[KeyboardButton(text="🔍 جستجو")], [KeyboardButton(text="❌ خروج")]],
         resize_keyboard=True
     )
     return keyboard
 
 @dp.message(Command("start"))
 async def start(message: Message):
-    await message.answer("✅ ربات با موفقیت کار می‌کند!", reply_markup=main_menu())
+    await message.answer("✅ ربات کار می‌کند!", reply_markup=main_menu())
 
 @dp.message()
 async def handle_message(message: Message):
     if message.text == "❌ خروج":
-        await message.answer("خداحافظ!", reply_markup=None)
+        await message.answer("خداحافظ!")
 
 async def main():
-    print("🚀 Starting bot...")
+    print("🚀 Bot starting...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
