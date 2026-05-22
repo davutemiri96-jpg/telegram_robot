@@ -1,3 +1,8 @@
 aiogram==3.5.0
 pyrogram==2.0.106
+telethon==1.36.0
 aiofiles==23.2.1
+patool==1.7
+py7zr==0.20.8
+aiohttp==3.9.5
+beautifulsoup4==4.12.3
