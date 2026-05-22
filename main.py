@@ -3,12 +3,12 @@ import logging
 import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-from aiogram.fsm import State, StatesGroup
+from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
 # ============================================
-# توکن ربات (توکن خودت اینجاست)
+# توکن ربات (توکن خودت رو اینجا بذار)
 # ============================================
 BOT_TOKEN = "8898380201:AAFKeXvAnOSwgvha1xGrwQxWIB8fGfEkVaE"
 # ============================================
@@ -26,6 +26,7 @@ class BotStates(StatesGroup):
     waiting_password = State()
     waiting_split_size = State()
     waiting_search_public = State()
+    waiting_for_file = State()
 
 # ============================================
 # منوی اصلی (4 گزینه)
@@ -136,7 +137,6 @@ async def search_public_execute(message: Message, state: FSMContext):
     keyword = message.text.strip()
     await message.answer(f"🔍 در حال جستجوی کانال‌های مرتبط با **{keyword}** ...\nاین عملیات چند ثانیه طول میکشه.")
     
-    # اینجا کد جستجوی واقعی میاد (الان نمونه)
     await asyncio.sleep(2)
     
     # نتایج نمونه
